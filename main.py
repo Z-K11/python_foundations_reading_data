@@ -42,3 +42,27 @@ else:
 con = sq.Connection(file_path)
 # This creates a connection with the data base for opening or modifying the database and stuff 
 print(con)
+query = '''SELECT * 
+FROM rock_songs;'''
+observations = pd.read_sql(query,con)
+print(observations.head())
+query = '''
+SELECT Artist, Release_Year, COUNT(*) AS num_songs, AVG(PlayCount) AS avg_plays  
+    FROM rock_songs
+    GROUP BY Artist, Release_Year
+    ORDER BY num_songs desc;
+'''
+
+# Execute the query
+observations = pds.read_sql(query, con)
+print(observations.head())
+query = '''Select Artist,Release_Year,COUNT(*) AS num_songs,AVG(PlayCount) AS avg_plays
+FROM rock_songs
+GROUP BY Artist,Release_Year
+ORDER BY num_songs desc;'''
+observations=pd.read_sql(query,con,coerce_float=True,
+parse_dates=['Release_Year'],chunksize=5)
+for index ,observations in enumerate(observations):
+    if index<5:
+        print(f'Observation index: {index}')
+        print(observations)
