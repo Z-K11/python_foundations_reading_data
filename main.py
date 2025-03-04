@@ -33,6 +33,9 @@ os.makedirs(destination_folder,exist_ok=True) # performs the function similar to
 # makedir
 file_path = os.path.join(destination_folder,"classic_rock.db")
 response = requests.get(url) # sends an http get request 
-with open(file_path,"wb") as file:
-    file.write(response.content)
-print(f"Download complete saved at {file_path}")
+if os.path.exists(file_path):
+    print(f"File already exists at path {file_path}")
+else:
+    with open(file_path,"wb") as file:
+        file.write(response.content)
+    print(f"Download complete saved at {file_path}")
