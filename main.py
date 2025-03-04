@@ -39,3 +39,6 @@ else:
     with open(file_path,"wb") as file:
         file.write(response.content)
     print(f"Download complete saved at {file_path}")
+con = sq.Connection(file_path)
+# This creates a connection with the data base for opening or modifying the database and stuff 
+print(con)
